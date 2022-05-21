@@ -4,10 +4,11 @@ session_start();
 
 <!DOCTYPE html>
 <html>
-<header>
+<head>
     <title>SafeCloud - Main Page</title>
-    
-</header>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="js/bootstrap.js"></script>    
+</head>
 
 <body>
     <h1>Buenos Días</h1>
