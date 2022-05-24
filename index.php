@@ -1,11 +1,18 @@
 <?php
 session_start();
+require 'funciones.php';
+
+
+if(isset($_POST['signup'])) {
+  header("Location: signup.php");
+}
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SafeCloud - Main Page</title>
+    <title>SafeCloud - Página Principal</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <script src="js/bootstrap.js"></script>    
 </head>
@@ -15,23 +22,23 @@ session_start();
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">SafeCloud</a>
+    <a class="navbar-brand" href="./index.php">SafeCloud</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Página Principal</a>
+          <a class="nav-link" aria-current="page" href="./index.php">Página Principal</a>
         </li>
         <li class="nav-item">
-            <a  class="nav-link" href="#">Contáctanos</a>
+            <a  class="nav-link" href="./tutorial.php">Tutorial</a>
         </li>
       </ul>  
     </div>
-    <form class="d-flex">
-        <button class="btn btn-outline-primary me-2" type="submit">Regístrate</button>
-        <button class="btn btn-outline-success" type="submit">Inicia Sesión</button>
+    <form class="d-flex" method="POST" action="./index.php">
+        <button class="btn btn-outline-success me-2" type="submit" name="signup">Regístrate</button>
+        <button class="btn btn-outline-primary" type="submit" name="login">Inicia Sesión</button>
     </form>
   </div>
 </nav>
@@ -73,24 +80,28 @@ session_start();
 </div>
 
 <div class="container mt-4">
+  <h1 class="display-4">Primeros Pasos: Iníciate en el uso de SafeCloud™</h1>
+</div>
+
+<div class="container mt-4">
 <div class="row">
   <div class="col-sm-6">
     <div class="card">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="img/creacuenta.png" class="card-img-top">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">Crea una cuenta en el terminal Safecloud</h5>
+        <p class="card-text">Inscríbete en el servicio SafeCloud de tu empresa y comienza a utilizarlo.</p>
+        <a href="./signup.php" class="btn btn-primary">Regístrate</a>
       </div>
     </div>
   </div>
   <div class="col-sm-6">
     <div class="card">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="img/ayuda.gif" class="card-img-top">
       <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <h5 class="card-title">¿Necesitas ayuda?</h5>
+        <p class="card-text">Observa nuestro tutorial sobre el uso de SafeCloud.</p>
+        <a href="./tutorial.php" class="btn btn-primary">Ver Tutorial</a>
       </div>
     </div>
   </div>
