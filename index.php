@@ -7,6 +7,11 @@ if(isset($_POST['signup'])) {
   header("Location: signup.php");
 }
 
+if(isset($_POST["iniciar"])) {
+  login($_POST["nomUsu"], $_POST["Pass"]);
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +19,8 @@ if(isset($_POST['signup'])) {
 <head>
     <title>SafeCloud - Página Principal</title>
     <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/bootstrap.js"></script>    
+    <script src="js/bootstrap.js"></script>
+    <link href="./bootstrap-icons-1.8.2/bootstrap-icons.css" rel="stylesheet"/>    
 </head>
 
 <body>
@@ -38,10 +44,12 @@ if(isset($_POST['signup'])) {
     </div>
     <form class="d-flex" method="POST" action="./index.php">
         <button class="btn btn-outline-success me-2" type="submit" name="signup">Regístrate</button>
-        <button class="btn btn-outline-primary" type="submit" name="login">Inicia Sesión</button>
+        <button class="btn btn-outline-primary" type="button" name="login" data-bs-toggle="modal" data-bs-target="#exampleModal">Inicia Sesión</button>
     </form>
   </div>
 </nav>
+
+<!-- carousel -->
 
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
@@ -79,6 +87,8 @@ if(isset($_POST['signup'])) {
   </button>
 </div>
 
+<!-- body -->
+
 <div class="container mt-4">
   <h1 class="display-4">Primeros Pasos: Iníciate en el uso de SafeCloud™</h1>
 </div>
@@ -107,6 +117,42 @@ if(isset($_POST['signup'])) {
   </div>
 </div>
 </div>
-    
+
+<div class="container">
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inicia Sesión</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form action="index.php" method="POST">
+              <div class="input-group mb-3">
+                <span class="input-group-text bg-primary"><i
+                class="bi bi-person-plus-fill text-white"></i></span>
+                <input type="text" class="form-control" placeholder="Nombre" name="nomUsu">
+                </div>            
+                <div class="input-group mb-3">
+                  <span class="input-group-text bg-primary"><i
+                  class="bi bi-key-fill text-white"></i></span>
+                  <input type="password" class="form-control" placeholder="Contraseña" name="Pass">
+                </div>
+                <div class="d-grid col-12 mx-auto">
+                  <button class="btn btn-primary" type="submit" name="iniciar">Iniciar Sesión</button>
+                </div>
+                <p class="text-center mt-3">¿No tienes una cuenta todavía?
+                  <a href="signup.php">Regístrate</span>
+                </p>
+              </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
 </body>
 </html>
