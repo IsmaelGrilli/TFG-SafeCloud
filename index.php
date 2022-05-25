@@ -7,8 +7,10 @@ if(isset($_POST['signup'])) {
   header("Location: signup.php");
 }
 
+$login="";
+
 if(isset($_POST["iniciar"])) {
-  login($_POST["nomUsu"], $_POST["Pass"]);
+  $login = login($_POST["nomUsu"], $_POST["Pass"]);
 }
 
 
@@ -48,6 +50,7 @@ if(isset($_POST["iniciar"])) {
     </form>
   </div>
 </nav>
+<div><?= $login ?></div>
 
 <!-- carousel -->
 

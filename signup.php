@@ -44,6 +44,7 @@ if (isset($_POST['creaUsu'])) {
 <!-- body -->
 
 <div class="vh-100 container-fluid" style="background-color: #eee;">
+<?= $yaExiste ?>
     <div style="margin-top: 100px;">
       <div class="rounded d-flex justify-content-center">
         <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">

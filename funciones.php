@@ -1,5 +1,6 @@
 <?php
 	function login($nomUsu, $pass) {
+		$error = "<div class='alert alert-danger' role='alert'>Usuario o contraseña incorrectos</div>";
 		$conexion = mysqli_connect("localhost", "pma", "pmapass", "safecloud");
 		$sql = "SELECT USUARIO FROM USERS WHERE USUARIO = ? AND CONTRASENA = ?";
 		$sentenciaPreparada = mysqli_prepare($conexion, $sql);
@@ -11,7 +12,7 @@
 			$_SESSION['usuario'] = $usuario;
 			header("Location:listaarchivos.php");
 		} else {
-			echo "Usuario o contraseña incorrectos";
+			return $error;
 		}
 		mysqli_stmt_close($sentenciaPreparada);
 		mysqli_close($conexion);
@@ -20,7 +21,7 @@
 
 
 	function creaUsu($nueNom, $nueApe, $nueUsu, $nueCorreo, $nuePass) {
-		$yaExiste = "";
+		$yaExiste = "<div class='alert alert-success' role='alert'>El usuario se ha creado correctamente</div>";
 		$conexion = mysqli_connect("localhost", "pma", "pmapass", "safecloud");
 		$sql = "SELECT CORREO FROM USERS WHERE CORREO = ?";
 		$sentenciaPreparada = mysqli_prepare($conexion, $sql);
@@ -35,7 +36,7 @@
 			mysqli_stmt_close($sentenciaPreparada);
 			mysqli_close($conexion);
 		} else {
-			$yaExiste = "Error, el correo electrónico ya está en uso en el sistema";
+			$yaExiste = "<div class='alert alert-danger' role='alert'>Error, el correo electrónico ya está en uso en el sistema</div>";
 		}
 		return $yaExiste;
 		mysqli_stmt_close($sentenciaPreparada);
