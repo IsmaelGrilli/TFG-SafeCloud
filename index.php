@@ -2,6 +2,7 @@
 session_start();
 require 'funciones.php';
 
+$_SESSION['logueado'] = false;
 
 if(isset($_POST['signup'])) {
   header("Location: signup.php");
@@ -11,6 +12,19 @@ $login="";
 
 if(isset($_POST["iniciar"])) {
   $login = login($_POST["nomUsu"], $_POST["Pass"]);
+}
+
+if($_SESSION["logueado"] != true) {
+  $form = "<form class='d-flex' method='POST' action='./index.php'>
+  <button class='btn btn-outline-success me-2' type='submit' name='signup'>Regístrate</button>
+  <button class='btn btn-outline-primary' type='button' name='login' data-bs-toggle='modal' data-bs-target='#exampleModal'>Inicia Sesión</button>
+</form>";
+} else {
+  $form = "<a class='btn btn-outline-danger' href='index.php?logout=yes'>Cerrar sesión</a>";
+}
+
+if (isset($_GET["logout"])) {
+  logout();
 }
 
 
@@ -44,10 +58,7 @@ if(isset($_POST["iniciar"])) {
         </li>
       </ul>  
     </div>
-    <form class="d-flex" method="POST" action="./index.php">
-        <button class="btn btn-outline-success me-2" type="submit" name="signup">Regístrate</button>
-        <button class="btn btn-outline-primary" type="button" name="login" data-bs-toggle="modal" data-bs-target="#exampleModal">Inicia Sesión</button>
-    </form>
+    <?= $form ?>
   </div>
 </nav>
 <div><?= $login ?></div>
