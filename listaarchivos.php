@@ -1,5 +1,15 @@
 <?php
 session_start();
+
+$form = "";
+$noLogueado = false;
+
+if($_SESSION['logueado'] != true) {
+  $noLogueado = "<div class='alert alert-danger' role='alert'>Error: Sesión no iniciada. <a href='index.php' class='alert-link'>Volver a la página principal</a></div>";
+} else {
+  $form = "<a class='btn btn-outline-danger' href='index.php?logout=yes'>Cerrar sesión</a>";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +39,25 @@ session_start();
         </li>
       </ul>  
     </div>
-    <form class="d-flex">
-        <button class="btn btn-outline-success me-2" type="submit">Regístrate</button>
-        <button class="btn btn-outline-primary" type="submit">Inicia Sesión</button>
-    </form>
+    <?= $form ?>
   </div>
 </nav>
+
+<!-- body -->
+
+<div class="vh-100 container-fluid" style="background-color: #eee;">
+  <?php
+    if ($noLogueado != false) {
+			echo $noLogueado;
+			die();
+		}
+
+    if ($_SESSION['usuario'] == "admin") {
+      $archivos = administrar();
+    } else {
+      $archivos = ver($_SESSION['usuario']);
+    }
+  ?>
+
+
+</div>

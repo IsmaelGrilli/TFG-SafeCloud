@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -29,9 +30,5 @@ session_start();
         </li>
       </ul>  
     </div>
-    <form class="d-flex">
-        <button class="btn btn-outline-success me-2" type="submit">Regístrate</button>
-        <button class="btn btn-outline-primary" type="submit">Inicia Sesión</button>
-    </form>
   </div>
 </nav>

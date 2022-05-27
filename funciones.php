@@ -51,9 +51,9 @@
 		$sentenciaPreparada = mysqli_prepare($conexion, $sql);
 		mysqli_stmt_execute($sentenciaPreparada);
 		mysqli_stmt_bind_result($sentenciaPreparada, $id, $file, $fecha, $tamagno, $propie);
-		$tabla = "";
+		$archivos = "";
 		while(mysqli_stmt_fetch($sentenciaPreparada)) {
-			$tabla = $tabla."<tr>
+			$archivos = $archivos."<tr>
 			<td>$id</td>
 			<td>$file</td>
 			<td>$fecha</td>
@@ -64,7 +64,7 @@
 		}
 		mysqli_stmt_close($sentenciaPreparada);
 		mysqli_close($conexion);
-		return $tabla;
+		return $archivos;
 	}
 
 
@@ -76,9 +76,9 @@
 		mysqli_stmt_bind_param($sentenciaPreparada, 's', $usuario);
 		mysqli_stmt_execute($sentenciaPreparada);
 		mysqli_stmt_bind_result($sentenciaPreparada, $id, $file, $fecha, $tamagno, $propie);
-		$tabla = "";
+		$archivos = "";
 		while(mysqli_stmt_fetch($sentenciaPreparada)) {
-			$tabla = $tabla."<tr>
+			$archivos = $archivos."<tr>
 			<td>$id</td>
 			<td>$file</td>
 			<td>$fecha</td>
@@ -89,7 +89,7 @@
 		}
 		mysqli_stmt_close($sentenciaPreparada);
 		mysqli_close($conexion);
-		return $tabla;
+		return $archivos;
 	}
 
 
