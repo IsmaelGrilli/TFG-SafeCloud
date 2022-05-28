@@ -47,20 +47,24 @@
 
 	function administrar() {
 		$conexion = mysqli_connect("localhost", "pma", "pmapass", "safecloud");
-		$sql = "SELECT ID, ARCHIVO, DATE_FORMAT(FECHA, '%D/%M/%Y'), TAMAGNO, PROPIETARIO FROM FILES";
+		$sql = "SELECT ID, ARCHIVO, FECHA, TAMAGNO, PROPIETARIO FROM FILES";
 		$sentenciaPreparada = mysqli_prepare($conexion, $sql);
 		mysqli_stmt_execute($sentenciaPreparada);
 		mysqli_stmt_bind_result($sentenciaPreparada, $id, $file, $fecha, $tamagno, $propie);
 		$archivos = "";
 		while(mysqli_stmt_fetch($sentenciaPreparada)) {
-			$archivos = $archivos."<tr>
-			<td>$id</td>
-			<td>$file</td>
-			<td>$fecha</td>
-			<td>$tamagno</td>
-			<td>$propie</td>
-			<td><a href='listaarchivos.php?id=$id'>Descargar</a></td>
-			</tr>";
+			$archivos = $archivos."
+			<div class='col-sm-6 mx-auto mt-3 mb-3'>
+    			<div class='card'>
+      				<div class='card-body'>
+        				<h5 class='card-title'>$id. $file</h5>
+						<h6 class='card-subtitle mb-2 text-muted'>$fecha | $propie</h6>
+        				<p class='card-text'>$tamagno</p>
+						<a href='listaarchivos.php?rm=$id' class='btn btn-danger'><i class='bi bi-trash3-fill'></i></a>
+        				<a href='listaarchivos.php?id=$id' class='btn btn-primary'><i class='bi bi-box-arrow-down'></i></a>
+      				</div>
+    			</div>
+  			</div>";
 		}
 		mysqli_stmt_close($sentenciaPreparada);
 		mysqli_close($conexion);
@@ -71,21 +75,25 @@
 
 	function ver($usuario) {
 		$conexion = mysqli_connect("localhost", "pma", "pmapass", "safecloud");
-		$sql = "SELECT ID, ARCHIVO, DATE_FORMAT(FECHA, '%D/%M/%Y'), TAMAGNO, PROPIETARIO FROM FILES WHERE PROPIETARIO = ?";
+		$sql = "SELECT ID, ARCHIVO, FECHA, TAMAGNO FROM FILES WHERE PROPIETARIO = ?";
 		$sentenciaPreparada = mysqli_prepare($conexion, $sql);
 		mysqli_stmt_bind_param($sentenciaPreparada, 's', $usuario);
 		mysqli_stmt_execute($sentenciaPreparada);
-		mysqli_stmt_bind_result($sentenciaPreparada, $id, $file, $fecha, $tamagno, $propie);
+		mysqli_stmt_bind_result($sentenciaPreparada, $id, $file, $fecha, $tamagno);
 		$archivos = "";
 		while(mysqli_stmt_fetch($sentenciaPreparada)) {
-			$archivos = $archivos."<tr>
-			<td>$id</td>
-			<td>$file</td>
-			<td>$fecha</td>
-			<td>$tamagno</td>
-			<td>$propie</td>
-			<td><a href='gestion.php?id=$id'>Descargar</a></td>
-			</tr>";
+			$archivos = $archivos."
+			<div class='col-sm-6 mx-auto mt-3 mb-3'>
+    			<div class='card'>
+      				<div class='card-body'>
+        				<h5 class='card-title'>$id. $file</h5>
+						<h6 class='card-subtitle mb-2 text-muted'>$fecha</h6>
+        				<p class='card-text'>$tamagno</p>
+						<a href='listaarchivos.php?rm=$id' class='btn btn-danger'><i class='bi bi-trash3-fill'></i></a>
+        				<a href='listaarchivos.php?id=$id' class='btn btn-primary'><i class='bi bi-box-arrow-down'></i></a>
+      				</div>
+    			</div>
+  			</div>";
 		}
 		mysqli_stmt_close($sentenciaPreparada);
 		mysqli_close($conexion);

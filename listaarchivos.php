@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+include 'archivos.php';
+
+require 'funciones.php';
+
 $form = "";
 $noLogueado = false;
 
@@ -8,6 +12,7 @@ if($_SESSION['logueado'] != true) {
   $noLogueado = "<div class='alert alert-danger' role='alert'>Error: Sesión no iniciada. <a href='index.php' class='alert-link'>Volver a la página principal</a></div>";
 } else {
   $form = "<a class='btn btn-outline-danger' href='index.php?logout=yes'>Cerrar sesión</a>";
+
 }
 
 ?>
@@ -17,10 +22,11 @@ if($_SESSION['logueado'] != true) {
 <head>
     <title>SafeCloud - Mis archivos</title>
     <link rel="stylesheet" href="css/bootstrap.css">
-    <script src="js/bootstrap.js"></script>    
+    <script src="js/bootstrap.js"></script>
+    <link href="./bootstrap-icons-1.8.2/bootstrap-icons.css" rel="stylesheet"/>    
 </head>
 
-<body>
+<body style="background-color: #eee;">
 
 <!-- navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -58,6 +64,19 @@ if($_SESSION['logueado'] != true) {
       $archivos = ver($_SESSION['usuario']);
     }
   ?>
+  <form action="listaarchivos.php" method="POST" enctype="multipart/form-data">
+  <div class="container text-center" style="margin-top: 100px">
+    <input class="form-control" type="file" name="newFile">
+    <button type="submit" class="btn btn-primary mt-2" name="subir">Subir Archivo</button>
+  </div>
+  
+  </form>
 
+  <hr>
+  <div class="container mt-4 rounded border" style="background-color: white;">
+    <div class="row">
+    <?php echo $archivos; ?>
+    </div>  
+  </div>
 
 </div>

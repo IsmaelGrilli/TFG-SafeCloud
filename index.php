@@ -2,12 +2,13 @@
 session_start();
 require 'funciones.php';
 
-$_SESSION['logueado'] = false;
-
 if(isset($_POST['signup'])) {
   header("Location: signup.php");
 }
 
+if (!isset($_SESSION["logueado"])) {
+  $_SESSION["logueado"] = false;
+}
 $login="";
 
 if(isset($_POST["iniciar"])) {
@@ -25,6 +26,7 @@ if($_SESSION["logueado"] != true) {
 
 if (isset($_GET["logout"])) {
   logout();
+  
 }
 
 
@@ -106,6 +108,8 @@ if (isset($_GET["logout"])) {
 <div class="container mt-4">
   <h1 class="display-4">Primeros Pasos: Iníciate en el uso de SafeCloud™</h1>
 </div>
+
+<!-- cards -->
 
 <div class="container mt-4">
 <div class="row">
