@@ -71,6 +71,34 @@
 		return $archivos;
 	}
 
+	function filtrarAdmin($busqueda) {
+		$conexion = mysqli_connect("localhost", "pma", "pmapass", "safecloud");
+		$busquedaPrepa = $busqueda . "%";
+		$sql = "SELECT ID, ARCHIVO, FECHA, TAMAGNO, PROPIETARIO FROM FILES WHERE ARCHIVO LIKE ?";
+		$sentenciaPreparada = mysqli_prepare($conexion, $sql);
+		mysqli_stmt_bind_param($sentenciaPreparada, 's', $busquedaPrepa);
+		mysqli_stmt_execute($sentenciaPreparada);
+		mysqli_stmt_bind_result($sentenciaPreparada, $id, $file, $fecha, $tamagno, $propie);
+		$archivos = "";
+		while(mysqli_stmt_fetch($sentenciaPreparada)) {
+			$archivos = $archivos."
+			<div class='col-sm-6 mx-auto mt-3 mb-3'>
+    			<div class='card'>
+      				<div class='card-body'>
+        				<h5 class='card-title'>$id. $file</h5>
+						<h6 class='card-subtitle mb-2 text-muted'>$fecha | $propie</h6>
+        				<p class='card-text'>$tamagno</p>
+						<a href='listaarchivos.php?rm=$id' class='btn btn-danger'><i class='bi bi-trash3-fill'></i></a>
+        				<a href='listaarchivos.php?id=$id' class='btn btn-primary'><i class='bi bi-box-arrow-down'></i></a>
+      				</div>
+    			</div>
+  			</div>";
+		}
+		mysqli_stmt_close($sentenciaPreparada);
+		mysqli_close($conexion);
+		return $archivos;
+	}
+
 
 
 	function ver($usuario) {
@@ -100,7 +128,33 @@
 		return $archivos;
 	}
 
-
+	function filtrarUsu($usuario, $busqueda) {
+		$conexion = mysqli_connect("localhost", "pma", "pmapass", "safecloud");
+		$busquedaPrepa = $busqueda . "%";
+		$sql = "SELECT ID, ARCHIVO, FECHA, TAMAGNO FROM FILES WHERE PROPIETARIO = ? AND ARCHIVO LIKE ?";
+		$sentenciaPreparada = mysqli_prepare($conexion, $sql);
+		mysqli_stmt_bind_param($sentenciaPreparada, 'ss', $usuario, $busquedaPrepa);
+		mysqli_stmt_execute($sentenciaPreparada);
+		mysqli_stmt_bind_result($sentenciaPreparada, $id, $file, $fecha, $tamagno);
+		$archivos = "";
+		while(mysqli_stmt_fetch($sentenciaPreparada)) {
+			$archivos = $archivos."
+			<div class='col-sm-6 mx-auto mt-3 mb-3'>
+    			<div class='card'>
+      				<div class='card-body'>
+        				<h5 class='card-title'>$id. $file</h5>
+						<h6 class='card-subtitle mb-2 text-muted'>$fecha</h6>
+        				<p class='card-text'>$tamagno</p>
+						<a href='listaarchivos.php?rm=$id' class='btn btn-danger'><i class='bi bi-trash3-fill'></i></a>
+        				<a href='listaarchivos.php?id=$id' class='btn btn-primary'><i class='bi bi-box-arrow-down'></i></a>
+      				</div>
+    			</div>
+  			</div>";
+		}
+		mysqli_stmt_close($sentenciaPreparada);
+		mysqli_close($conexion);
+		return $archivos;
+	}
 
 	function logout() {
 		session_destroy();

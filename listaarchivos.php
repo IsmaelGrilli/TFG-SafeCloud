@@ -58,10 +58,14 @@ if($_SESSION['logueado'] != true) {
 			die();
 		}
 
-    if ($_SESSION['usuario'] == "admin") {
+    if ($_SESSION['usuario'] == "admin" and !isset($_POST['buscar'])) {
       $archivos = administrar();
-    } else {
+    } else if($_SESSION['usuario'] == "admin" and isset($_POST['buscar'])) {
+      $archivos = filtrarAdmin($_POST['consulta']);
+    } else if($_SESSION['usuario'] != "admin" and !isset($_POST['buscar'])){
       $archivos = ver($_SESSION['usuario']);
+    } else if($_SESSION['usuario'] != "admin" and isset($_POST['buscar'])) {
+      $archivos = filtrarUsu($_SESSION['usuario'], $_POST['consulta']);
     }
   ?>
   <form action="listaarchivos.php" method="POST" enctype="multipart/form-data">
@@ -74,6 +78,11 @@ if($_SESSION['logueado'] != true) {
 
   <hr>
   <div class="container mt-4 rounded border" style="background-color: white;">
+    <form action="listaarchivos.php" method="POST" class="mx-auto mt-3 mb-3">
+      <div class="input-group mb-3">  
+      <input type="text" class="form-control" name="consulta" placeholder="Introduce tu búsqueda..."><button type="submit" class="btn btn-primary" name="buscar"><i class="bi bi-search mx-auto mt-3 mb-3"></i></button>      
+      </div>
+    </form>  
     <div class="row">
     <?php echo $archivos; ?>
     </div>  
